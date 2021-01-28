@@ -1,0 +1,9 @@
+version: "3"
+services:
+  ocktober:
+    image: "nabad600/octobercms:v1.8.24.2020"
+    ports:
+      - "${DOCK_PORT}:80"
+    volumes:
+      - "${APP_CODE_PATH_HOST}:/var/www/html"
+volumes: {}
