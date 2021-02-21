@@ -65,6 +65,5 @@ system:
   ports:
     http:
       DOCK_PORT
-    others:
       
 
