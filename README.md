@@ -26,3 +26,16 @@
 	cd docktober & docker-compose up -d
 	```
 
+### Note:- IF css and js error in https, please below the change
+
+```
+edit nano /var/www/html/config/cms.php
+line number 240
+```
+```
+'linkPolicy' => getenv('OCTOBER_CMS_LINK_POLICY') ?: 'detect',
+```
+## TO
+```
+'linkPolicy' => getenv('OCTOBER_CMS_LINK_POLICY') ?: 'secure',
+```
