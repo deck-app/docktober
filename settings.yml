@@ -61,7 +61,7 @@ user:
     type:
       input
     values:
-      password
+      
     hint:
       Admin password
     target:
