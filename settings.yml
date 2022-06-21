@@ -1,33 +1,47 @@
 #User defined
 user:
-  # php_version:
-  #   label:
-  #     PHP version
-  #   hint:
-  #     Select a PHP version from the list above
-  #   type:
-  #     select
-  #   values:
-  #     - 7.0
-  #     - 7.1
-  #     - 7.2
-  #     - 7.3
-  #     - 7.4
-  #   target:
-  #     PHP_VERSION
+  back_end:
+    label:
+      Backend
+    hint:
+      Select a backend from the list above
+    type:
+      select
+    values:
+      - apache
+      - nginx
+    target:
+      BACK_END
+  php_version:
+    label:
+      PHP version
+    hint:
+      Select a PHP version from the list above
+    type:
+      select
+    values:
+      - 7.4
+      - "8.0"
+    target:
+      PHP_VERSION
 
-  # install_xdebug:
-  #   label:
-  #     Install XDEBUG?
-  #   type:
-  #     select
-  #   values:
-  #     - on
-  #     - off
-  #   hint:
-  #     Check to enable XDEBUG installation
-  #   target:
-  #     INSTALL_XDEBUG
+  php_error_reporting:
+    label:
+      Enable PHP error reporting?
+    type:
+      checkbox
+    hint: Check the box to display PHP errors 
+    target:
+      DISPLAY_PHPERROR
+  php_xdebug:
+    label:
+      Enable PHP extension XDEBUG?
+    type:
+      checkbox
+    hint: Check the box to display extension xdebug
+    target:
+      XDEBUG
+    
   # mysql_version:
   #   label:
   #     MySQL version
@@ -41,17 +55,17 @@ user:
   #   target:
   #     MYSQL_VERSION
 
-  # customize_server_root_path:
-  #   label:
-  #     Server root
-  #   type:
-  #     input
-  #   values:
-  #     /var/www
-  #   hint:
-  #     Server document root
-  #   target:
-  #     SERVER_ROOT
+  customize_admin_password:
+    label:
+      Admin password
+    type:
+      input
+    values:
+      password
+    hint:
+      Admin password
+    target:
+      ADMIN_PASSWD
 
 #System defaults
 system:
@@ -64,4 +78,7 @@ system:
   #Generate public ports for the docker image
   ports:
     http:
-      DOCK_PORT
+      WINTER_HOST_HTTP_PORT
+    other:
+      MYSQL_PORT
+      PMA_PORT
