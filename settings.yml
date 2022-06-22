@@ -42,18 +42,20 @@ user:
     target:
       XDEBUG
     
-  # mysql_version:
-  #   label:
-  #     MySQL version
-  #   hint:
-  #     Select MySQL version
-  #   type:
-  #     select
-  #   values:
-  #     - "5.0"
-  #     - "7.0"
-  #   target:
-  #     MYSQL_VERSION
+  MariaDB_version:
+    label:
+      MariaDB version
+    hint:
+      Select a MariaDB version from the list above
+    type:
+      select
+    values:
+      - latest
+      - 10.7
+      - 10.6
+      - 10.5
+    target:
+      MARIADB_VERSION
 
   customize_admin_password:
     label:
@@ -79,6 +81,6 @@ system:
   ports:
     http:
       WINTER_HOST_HTTP_PORT
-    other:
-      MYSQL_PORT
-      PMA_PORT
+    others:
+      - MYSQL_PORT
+      - PMA_PORT
