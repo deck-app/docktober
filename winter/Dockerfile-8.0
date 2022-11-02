@@ -43,9 +43,7 @@ apk add php8-pecl-xdebug \
 && echo "zend_extension=xdebug" >> /etc/php8/php.ini \
 ;fi
 
-ARG ADMIN_PASSWD
 COPY docker-entrypoint.sh /docker-entrypoint.sh
-RUN sed -i "s#{ADMIN_PASSWD}#${ADMIN_PASSWD}#g" /docker-entrypoint.sh
 
 ARG INSTALL_ADDITIONAL_EXTENSIONS
 RUN if [ -z "$INSTALL_ADDITIONAL_EXTENSIONS" ] ; then \
@@ -60,18 +58,12 @@ ARG GROUP_ID
 RUN apk --no-cache add shadow
 RUN if [[ ${BACK_END} = nginx ]] ; then usermod -u ${USER_ID} nobody && groupmod -g ${GROUP_ID} nobody ; else usermod -u ${USER_ID} apache && groupmod -g ${GROUP_ID} apache ; fi
 
-## Database credentials
-ARG DB_NAME
-ARG DB_USER
-ARG DB_PASSWORD
-RUN sed -i "s#{DB_NAME}#${DB_NAME}#g" /app/app.env
-RUN sed -i "s#{DB_USER}#${DB_USER}#g" /app/app.env
-RUN sed -i "s#{DB_PASSWORD}#${DB_PASSWORD}#g" /app/app.env
-
-RUN sed -i "s#{USER_ID}#${USER_ID}#g" /docker-entrypoint.sh
-RUN sed -i "s#{GROUP_ID}#${GROUP_ID}#g" /docker-entrypoint.sh
-RUN sed -i "s#{BACK_END}#${BACK_END}#g" /docker-entrypoint.sh
-
-
+#Application Download
+RUN set -ex; \
+		curl -o install.zip -fSL "https://github.com/wintercms/web-installer/releases/download/v1.2.0/install.zip"; \
+        mkdir /app/install/; \
+		unzip install.zip -d /app/install; \
+		rm install.zip
+        
 RUN chmod +x /docker-entrypoint.sh
 CMD /docker-entrypoint.sh & /sbin/runit-wrapper

@@ -50,24 +50,11 @@ user:
     type:
       select
     values:
-      - latest
       - 10.7
       - 10.6
       - 10.5
     target:
       MARIADB_VERSION
-
-  customize_admin_password:
-    label:
-      Admin password
-    type:
-      input
-    values:
-      password
-    hint:
-      Admin password
-    target:
-      ADMIN_PASSWD
 
 #System defaults
 system:

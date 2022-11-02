@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set +x
 
 if [[ -f "/var/www/composer.json" ]] ;
@@ -23,26 +23,17 @@ if [[ "$(ls -A "/var/www/")" ]] ;
     then
         echo "If the Directory is not empty, please delete the hidden files and directory"
     else
-        # git clone https://github.com/octobercms/install.git .
-        composer create-project wintercms/winter . "dev-develop"
-        php artisan winter:env
-        cp -a /app/app.env /var/www/.env
-        HOST=`hostname`
-        NAME=`echo $HOST | cut -c9-`
-        #HOST_NAME = echo "`hostname`" | sed 's:.*-::'
-        sed -i "s/{DB_HOSTNAME}/$NAME/g" /var/www/.env
-        php artisan winter:up
+        cp -a /app/install/* /var/www/
+        mv /var/www/install.html /var/www/index.html
 fi
 
 if [[ {BACK_END} = nginx ]] ;
 then
     cp /app/default.conf /etc/nginx/conf.d/default.conf
-    php artisan winter:passwd admin {ADMIN_PASSWD}
     nginx -s reload
     chown -R nobody:nobody /var/www 2> /dev/null
 else
     cp /app/httpd.conf /etc/apache2/httpd.conf
-    php artisan winter:passwd admin {ADMIN_PASSWD}
     httpd -k graceful
     chown -R apache:apache /var/www 2> /dev/null
 fi
