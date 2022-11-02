@@ -28,7 +28,7 @@ if [[ "$(ls -A "/var/www/")" ]] ;
         php artisan winter:env
         cp -a /app/app.env /var/www/.env
         HOST=`hostname`
-        NAME=`echo $HOST | sed 's:.*-::'`
+        NAME=`echo $HOST | cut -c9-`
         #HOST_NAME = echo "`hostname`" | sed 's:.*-::'
         sed -i "s/{DB_HOSTNAME}/$NAME/g" /var/www/.env
         php artisan winter:up
