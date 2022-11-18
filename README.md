@@ -27,7 +27,6 @@ For more information on the exact events that led to the decision to fork,
 
 ```
 edit nano /var/www/config/cms.php
-line number 240
 ```
 ```
 'linkPolicy' => env('LINK_POLICY', 'detect'),
